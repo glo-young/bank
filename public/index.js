@@ -1,4 +1,4 @@
-function Spa(){
+function Spa() {
     return (
         <HashRouter>
             <div>
@@ -10,6 +10,7 @@ function Spa(){
         <Route path="/login/" component={Login} />
         <Route path="/deposit/" component={Deposit} />
         <Route path="/withdraw/" component={Withdraw} />
+        <Route path="/balance/" component={Balance} />
         <Route path="/alldata/" component={AllData} />
         <Route path="/createaccount/" component={CreateAccount} />
         </div>

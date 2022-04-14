@@ -2,14 +2,15 @@ function Login(){
     const [show, setShow]       = React.useState(true);
     const [status, setStatus]   = React.useState('');
 
+
 return(
     <Card
         bgcolor="secondary"
         header="LOGIN"
         status={status}
         body={show ?
-            <LoginForm setShow={setShow}/> :
-            <LoginMsg setShow={setShow}/>}
+            <LoginForm setShow={setShow} setStatus={setStatus}/> :
+            <LoginMsg setShow={setShow} setStatus={setStatus}/>}
     />
     )
         }
@@ -27,17 +28,18 @@ function LoginForm(props){
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
     
-function handle(){
-    console.log(email,password);
-    const url = `/account/login/${email}/${password}`;
-    (async () => {
-        var res = await fetch(url);
-        var data = await res.json();
-        console.log(data);
-        })();
-        props.setShow(false);
-}
-    
+
+    function handle(){
+        console.log(email,password);
+        const url = `/account/login/${email}/${password}`;
+        (async () => {
+            var res = await fetch(url);
+            var data = await res.json();
+            console.log(data);
+            })();
+            props.setShow(false);
+        }
+
     return (<>
     
     Email address <br/>

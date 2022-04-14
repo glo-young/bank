@@ -9,8 +9,8 @@ function Withdraw(){
             header="WITHDRAW"
             status={status}
             body={show ?
-                <WithdrawForm setShow={setShow}/> :
-                <DepositMsg setShow={setShow}/>}
+                <WithdrawForm setShow={setShow} setStatus={setStatus}/> :
+                <WithdrawMsg setShow={setShow} setStatus={setStatus}/>}
             />
     )
 }
@@ -20,30 +20,51 @@ function WithdrawMsg(props){
     <h5> Withdrawal Succcesful! </h5>
     <button type="submit"
     className="btn btn-light"
-    onClick={() => props.setShow(true)}> Make another withdrawal </button>
+    onClick={() => {
+        props.setShow(true);
+        props.setStatus('');}
+        }> Make another withdrawal </button>
     </>);
 }
 
 function WithdrawForm(props){
-    const [withdraw, setWithdraw]   = React.useState('');
-    const [balance, setBalance]   = React.useState('0');
+    const [email,setEmail]   = React.useState('');
+    const [amount,setAmount]   = React.useState('');
     
     
-function handle(){
+
+    function handle() {
+        console.log(email, amount);
     
-    setBalance(Number(balance) - Number(withdraw));
-}
+        const url = `/account/update/${email}/-${amount}`;
+         (async () => {
+            var res = await fetch(url);
+            var data = await res.json();
+            console.log('data ' + JSON.stringify(data));
+            })();
+            props.setShow(false);
+    
+        if (!user) {
+            props.setStatus('Error');
+        }
+    }
 
 return (<>
     
-    Withdraw <br/>
+    Email address <br/>
     <input type="input"
     className="form-control"
+    placeholder="Enter email"
+    value={email}
+    onChange={e => setEmail(e.currentTarget.value)} /><br/>
+
+    Withdraw <br/>
+    <input type="number"
+    className="form-control"
     placeholder="Withdrawal amount"
-    value={withdraw}
-    onChange={e => setWithdraw(e.currentTarget.value)} /><br/>
+    value={amount}
+    onChange={e => setAmount(e.currentTarget.value)} /><br/>
     
-    <h5> CURRENT BALANCE: ${balance} </h5> <br></br>
     
     <button type="submit"
     className="btn btn-light"

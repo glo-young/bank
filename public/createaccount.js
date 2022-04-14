@@ -28,6 +28,7 @@ function CreateForm(props){
     const [name, setName]   = React.useState('');
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
+
     
 function handle(){
     console.log(name,email,password);
@@ -38,7 +39,8 @@ function handle(){
         console.log(data);
         })();
         props.setShow(false);
-}
+    } 
+
     
     return (<>
     
